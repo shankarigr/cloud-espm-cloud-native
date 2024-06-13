@@ -5,7 +5,7 @@
 		{
 			"name": "$XSAPPNAME.Access",
 			"description": "access tax service ",
-			"grant-as-authority-to-apps": ["$XSAPPNAME(application,espm-cloud-native-uaa)"]
+			"grant-as-authority-to-apps": ["$XSAPPNAME(application,espm-cloud-native-uaa-grs)"]
 		}
 	],
 	"role-templates": [

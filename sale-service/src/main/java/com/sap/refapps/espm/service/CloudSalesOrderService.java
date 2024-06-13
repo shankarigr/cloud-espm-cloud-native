@@ -36,6 +36,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -171,7 +172,7 @@ public class CloudSalesOrderService extends AbstractSalesOrderService {
 				uri = URI.create(taxUri + amount);
 				ResponseEntity<Tax> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, Tax.class);
 				tax = responseEntity.getBody();
-			}
+			} 
 		}
 		logger.info("Tax service endpoint is {}", taxUri);
 		logger.info("Tax service is called to calculate tax for amount : {}", amount);

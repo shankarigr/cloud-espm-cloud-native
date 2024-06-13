@@ -84,7 +84,7 @@ modules:
       - espm-product-svc
     properties:
       TARGET_RUNTIME: tomcat
-      QUEUE_NAME: "<yourorgname>/<any_messageclientname>/<uniqueID>/salesorderqueue"
+      QUEUE_NAME: "test/espm/grs/salesorderqueue"
       PROD_SERVICE: ~{product-service/product-url}
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
       JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 17.+ }"
@@ -116,7 +116,7 @@ modules:
       timeout: 60m
     properties:
       TARGET_RUNTIME: tomcat
-      QUEUE_NAME: "<yourorgname>/<any_messageclientname>/<uniqueID>/salesorderqueue"
+      QUEUE_NAME: "test/espm/grs/salesorderqueue"
       spring.main.allow-circular-references: true
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jdk.SAPMachineJDK']"
       JBP_CONFIG_SAP_MACHINE_JDK: "{ version: 17.+ }"
@@ -195,8 +195,6 @@ resources:
     parameters:
       service: hana
       service-plan: schema
-      config:
-        database_id:  <database_guid>
       
   - name: espm-xsuaa
     parameters:

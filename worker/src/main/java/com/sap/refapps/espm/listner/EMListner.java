@@ -87,8 +87,13 @@ public class EMListner {
 				SalesOrderRepository repo = appContext.getBean(SalesOrderRepository.class);
 				try {
 					if (!repo.existsById(so.getSalesOrderId())) {
-						repo.save(so);
-						logger.info(so.getSalesOrderId() + " created");
+						try{
+							repo.save(so);
+							logger.info(so.getSalesOrderId() + " --------------------------------created");
+						
+						} catch(Exception e){
+							System.out.println("Unable to connect to DB inside inside-------------------------------- " + e.getMessage());
+						}
 
 					} else {
 						logger.error(so.getSalesOrderId() + " already Exists, Deleting from Queue");
@@ -97,20 +102,25 @@ public class EMListner {
 					}
 					message.acknowledge();
 				} catch (DataIntegrityViolationException e) {
+					System.out.println("inside DataIntegrityViolationException");
 					logger.error(so.getSalesOrderId() + " is an invalid Sales-Order, Deleting from Queue");
 					// channel.basicNack(tag, false, false);
 					message.acknowledge();
 
 				} catch (CannotCreateTransactionException ccte) {
+					System.out.println("Unable to connect to DB");
+					System.out.println("Backing  for " + value);
 					logger.error("Unable to connect to DB");
 					logger.error("Backing  for " + value);
 					TimeUnit.MILLISECONDS.sleep(value);
 					if (value <= maxVal)
 						value = value * multiplier;
 
+				} catch(Exception e){
+					System.out.println("Unable to connect to DB inside-------------------------------- " + e.getMessage());
 				}
 			} catch (Exception e) {
-				System.out.println("ex: " + e.getMessage());
+				System.out.println("Unable to connect to DB -------------------------------- " + e.getMessage());
 				latch.countDown();
 			}
 			try {
